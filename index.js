@@ -1,16 +1,32 @@
 
 const state = {};
 
-function init() {
+async function init() {
     $("#searchAction").on("click", searchAction)
+    // api.getCountries().then(res => {
+    //     console.log(res)
+    // })
+
+    try {
+        const result = await api.getCountries();
+        console.log("...", result)
+    } catch (ex) {
+        console.log("result failed")
+    }
+
+
+
+
 }
 
 function searchAction() {
     const code = $("#search").val();
+
     api.getCountryByCode(code).then((res) => {
         const currentCountry = {
             ...res, languages: res.languages.map(lang => lang.iso639_1)
         }
+        api.save(currentCountry)
         state[code] = { country: currentCountry }
         getAllcountriesByLanguages(currentCountry.languages, code)
 
@@ -52,5 +68,6 @@ function draw(flags) {
 
 
 init();
+
 
 

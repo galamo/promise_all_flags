@@ -60,10 +60,16 @@ function draw(flags) {
         clonedCard.find("img").attr({ src: value });
         clonedCard.css({ display: "inline-block" });
         clonedCard.find("#title").html(key);
+        clonedCard.on("click", saveInServer)
         $("#content").append(clonedCard);
     })
 
 
+}
+
+function saveInServer() {
+    const current = $(this).find("#title").html()
+    api.saveToFavorites(current)
 }
 
 

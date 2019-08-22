@@ -22,7 +22,15 @@ const api = {
             url: `${config.country}`,
             method: "get"
         })
+    },
+    saveCountry: (country) => {
+        return $.ajax({
+            url: `${config.country}`,
+            method: "post",
+            data: country
+        })
     }
+
 
 }
 

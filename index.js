@@ -3,9 +3,6 @@ const state = {};
 
 async function init() {
     $("#searchAction").on("click", searchAction)
-    // api.getCountries().then(res => {
-    //     console.log(res)
-    // })
 
     try {
         const result = await api.getCountries();
@@ -26,7 +23,10 @@ function searchAction() {
         const currentCountry = {
             ...res, languages: res.languages.map(lang => lang.iso639_1)
         }
-        api.save(currentCountry)
+        api.saveCountry(currentCountry).then(res => {
+            console.log(res)
+        })
+
         state[code] = { country: currentCountry }
         getAllcountriesByLanguages(currentCountry.languages, code)
 
